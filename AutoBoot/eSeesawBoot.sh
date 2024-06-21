@@ -4,6 +4,6 @@
 # @reboot sleep 60 && sudo /home/piz-ecg1/GitHub/Arduino-HC05-RPi/AutoBoot/eSeesawBoot.sh
 
 sleep 60 #Waits 60 seconds aferbooting for connecting to the Arduino
-rfcomm bind rfcomm0 98:D3:91:FE:97:4E #Arduino MAC addresssudo
+sudo rfcomm bind rfcomm0 98:D3:91:FE:97:4E #HC05-module MAC address
 sleep 10
-python3 /home/pi-ecg1/Arduino-HC05-RPi/Python/clientPump.py
+sudo python3 /home/pi-ecg1/GitHub/Arduino-HC05-RPi/Python/clientPump.py

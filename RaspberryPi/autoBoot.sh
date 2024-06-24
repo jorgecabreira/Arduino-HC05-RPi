@@ -6,4 +6,4 @@
 sleep 60 #Waits 60 seconds aferbooting for connecting to the Arduino
 sudo rfcomm bind rfcomm0 98:D3:91:FE:97:4E #HC05-module MAC address
 sleep 10
-sudo python3 /home/pi-ecg1/GitHub/Arduino-HC05-RPi/Python/clientPump.py
+sudo python3 /home/pi-ecg1/GitHub/Arduino-HC05-RPi/RaspberryPi/serverPump.py

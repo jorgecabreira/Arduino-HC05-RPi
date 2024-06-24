@@ -83,24 +83,24 @@ try:
             recv = ser.readline()
     
             if recv != '':
-		# Log button pressed to file
+		        # Log button pressed to file
                 formattedDateTime = file_manager.get_current_datetime(False)
                 file_manager.log_to_file(file_path,f"{formattedDateTime},button,pressed")
                 print("Arduino Status >> " + str(recv, 'utf-8'))
                 
                 # Activate pump, log pump on to file
                 pinPump.on()
-		formattedDateTime = file_manager.get_current_datetime(False)
-		file_manager.log_to_file(file_path,f"{formattedDateTime},pump,on")
+		        formattedDateTime = file_manager.get_current_datetime(False)
+		        file_manager.log_to_file(file_path,f"{formattedDateTime},pump,on")
                 time.sleep(5)
                 
-		# Turns off pump and logs pump off to file
-		pinPump.off()
+		        # Turns off pump and logs pump off to file
+		        pinPump.off()
                 formattedDateTime = file_manager.get_current_datetime(False)
                 file_manager.log_to_file(file_path,f"{formattedDateTime},pump,off")
 		    
                 # Send reply to Arduino with successful pump activation
-		response = "Pump activated\r"
+		        response = "Pump activated\r"
                 ser.write(response.encode())
                 print("Response sent: Pump activated")
 

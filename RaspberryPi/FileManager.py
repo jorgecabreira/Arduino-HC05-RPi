@@ -33,7 +33,7 @@ class FileManager:
         
         # Format the date and time in the specified format
         if not filename:
-            formatted_datetime = now.strftime('%Y%m%d%H%M%S%f')
+            formatted_datetime = now.strftime('%Y%m%d%H%M%S%f')[:-2]
         else:
             formatted_datetime = now.strftime('%Y%m%d%H%M%S')
         
@@ -51,7 +51,7 @@ class FileManager:
         
         # Create and open the file
         with open(file_path, 'w') as file:
-            file.write("date,event\n")
+            file.write("date,object,state\n")
         
         return file_path
 

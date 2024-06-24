@@ -30,7 +30,10 @@ pinPump = OutputDevice(2)
 pinLED  = LED(3)
 fBlink  = 0.1
 sBlink  = 7
+# Seconds for the pump to run
+rewardTime = 5 # seconds
 
+# LED blink loop
 def LEDsignal():
 	for i in range(15):
 		pinLED.on()
@@ -40,6 +43,12 @@ def LEDsignal():
 	pinLED.on()
 	time.sleep(sBlink)
 	pinLED.off()
+# Function to clean up GPIO
+def cleanup():
+    pinPump.close()  # Close GPIO pin
+
+# Register cleanup function with atexit
+atexit.register(cleanup)
 
 # Initialize serial communication with Arduino
 try:
@@ -67,15 +76,6 @@ file_manager = FileManager(directory)
 file_path = file_manager.create_file()
 print(f"File created: {file_path}")
 
-
-# Function to clean up GPIO
-def cleanup():
-    pinPump.close()  # Close GPIO pin
-
-# Register cleanup function with atexit
-atexit.register(cleanup)
-
-
 # Main loop to handle Arduino communication
 try:
     while True :
@@ -83,23 +83,24 @@ try:
             recv = ser.readline()
     
             if recv != '':
+		# Log button pressed to file
+                formattedDateTime = file_manager.get_current_datetime(False)
+                file_manager.log_to_file(file_path,f"{formattedDateTime},button,pressed")
                 print("Arduino Status >> " + str(recv, 'utf-8'))
                 
-                # Get and append current datetime to the file
-                formattedDateTime = file_manager.get_current_datetime(False)
-                file_manager.log_to_file(file_path,f"{formattedDateTime},ButtonPressed")
-                
-                # Activate pump
+                # Activate pump, log pump on to file
                 pinPump.on()
-                time.sleep(2)
-                pinPump.off()
-                response = "Pump activated\r"
+		formattedDateTime = file_manager.get_current_datetime(False)
+		file_manager.log_to_file(file_path,f"{formattedDateTime},pump,on")
+                time.sleep(5)
                 
-                # Get and append current datetime to the file
+		# Turns off pump and logs pump off to file
+		pinPump.off()
                 formattedDateTime = file_manager.get_current_datetime(False)
-                file_manager.log_to_file(file_path,f"{formattedDateTime},RewardReleased")
-                
+                file_manager.log_to_file(file_path,f"{formattedDateTime},pump,off")
+		    
                 # Send reply to Arduino with successful pump activation
+		response = "Pump activated\r"
                 ser.write(response.encode())
                 print("Response sent: Pump activated")
 

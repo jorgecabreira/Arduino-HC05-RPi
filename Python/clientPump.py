@@ -21,11 +21,25 @@ Description:
 import time
 import serial
 import atexit
-from gpiozero import OutputDevice
+from multiprocessing import Process
+from gpiozero import OutputDevice, LED
 from FileManager import FileManager
 
 # Initialize GPIO for pump control
 pinPump = OutputDevice(2)
+pinLED  = LED(3)
+fBlink  = 0.1
+sBlink  = 7
+
+def LEDsignal():
+	for i in range(15):
+		pinLED.on()
+		time.sleep(fBlink)
+		pinLED.off()
+		time.sleep(fBlink)
+	pinLED.on()
+	time.sleep(sBlink)
+	pinLED.off()
 
 # Initialize serial communication with Arduino
 try:
@@ -39,6 +53,10 @@ try:
     # Ensure the serial port is open    
     if ser.isOpen():
         print("Serial port is open")
+	# Starts LED blinking for some seconds to indicate that the BLE 
+	# connection was successful
+        Process(target=LEDsignal).start()
+
 except serial.SerialException as e:
     print(f"Error opening serial port: {e}")
     exit(1)  # Exit the program if serial port cannot be opened

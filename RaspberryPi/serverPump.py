@@ -86,7 +86,7 @@ try:
 		        # Log button pressed to file
                 formattedDateTime = file_manager.get_current_datetime(False)
                 file_manager.log_to_file(file_path,f"{formattedDateTime},button,pressed")
-                print("Arduino Status >> " + str(recv, 'utf-8'))
+                print("Arduino status: " + str(recv, 'utf-8'))
                 
                 # Activate pump, log pump on to file
                 pinPump.on()

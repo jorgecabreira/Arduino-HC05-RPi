@@ -51,6 +51,13 @@ void loop() {
     btSerial.println("Button pressed\r");
 
     // Small delay to debounce the button and avoid multiple readings
-    delay(500);
+    delay(5000);
+
+    // Do not let the loop end until the button is released
+    while (buttonState == HIGH){
+      // Read the state of the button
+      buttonState = digitalRead(buttonPin);
+      delay(1);
+    }
   }
 }

@@ -49,8 +49,8 @@ void loop() {
 
     // Send a message to the Raspberry Pi via Bluetooth
     btSerial.println("Button pressed\r");
+
+    // Small delay to debounce the button and avoid multiple readings
+    delay(500);
   }
-  
-  // Small delay to debounce the button and avoid multiple readings
-  delay(500);
 }

@@ -31,7 +31,6 @@ void setup() {
 
   // Initialize the hardware serial communication
   Serial.begin(9600);
-  while (!Serial);  // Wait for the serial port to connect
   Serial.println("Start serial communication");
 
   // Initialize the Bluetooth serial communication

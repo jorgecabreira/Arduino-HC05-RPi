@@ -71,7 +71,7 @@ except serial.SerialException as e:
     exit(1)  # Exit the program if serial port cannot be opened
 
 # Initialize file manager
-directory = '/home/pi-ecg1/Desktop/DATA'  # Replace with pertinent directory
+directory = '~/Desktop/DATA'  # Replace with pertinent directory
 file_manager = FileManager(directory)
 file_path = file_manager.create_file()
 print(f"File created: {file_path}")
